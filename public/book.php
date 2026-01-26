@@ -4,9 +4,21 @@ checkAuth();
 include '../includes/header.php';
 ?>
 
-<h2>Book a Room</h2>
-<input type="date" id="check_in">
-<input type="date" id="check_out">
-<div id="available"></div>
+<div class="container">
+
+    <h2>Room Availability</h2>
+
+    <form onsubmit="return false;">
+        <label>Check-in Date</label>
+        <input type="date" id="check_in">
+
+        <label>Check-out Date</label>
+        <input type="date" id="check_out">
+    </form>
+
+    <h3>Available Rooms</h3>
+    <div id="available"></div>
+
+</div>
 
 <?php include '../includes/footer.php'; ?>

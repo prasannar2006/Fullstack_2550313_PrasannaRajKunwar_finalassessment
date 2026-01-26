@@ -1,38 +1,52 @@
 <?php
-include '../config/db.php';
+require '../config/db.php';
+require '../includes/functions.php';
+checkAuth();
 include '../includes/header.php';
 
-$stmt = $pdo->query("SELECT * FROM rooms");
-$rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$rooms = $pdo->query("SELECT * FROM rooms ORDER BY room_number")->fetchAll();
 ?>
 
-<h2>Our Rooms</h2>
-
-<input type="text" id="search" placeholder="Search rooms...">
-
-<div id="results">
 <div class="container">
-    <h2>Our Rooms</h2>
 
-    <input type="text" id="search" placeholder="Search rooms...">
+    <h2>Rooms</h2>
 
-    <div id="results" class="room-grid">
-        <?php foreach ($rooms as $room): ?>
-            <div class="room-card">
-                <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85" alt="Room Image">
-                <div class="content">
-                    <h3><?= htmlspecialchars($room['room_name']) ?></h3>
-                    <p><?= htmlspecialchars($room['description']) ?></p>
-                    <div class="price">$<?= htmlspecialchars($room['price_per_night']) ?> / night</div>
+    <p>
+        <a href="add_room.php" class="btn">+ Add Room</a>
+    </p>
 
-                    <a class="btn" href="edit_room.php?id=<?= $room['id'] ?>">Edit</a>
-                    <a class="btn" href="delete_room.php?id=<?= $room['id'] ?>" 
-                       onclick="return confirm('Delete this room?')">Delete</a>
-                </div>
-            </div>
-        <?php endforeach; ?>
+    <div class="search-box">
+        <input type="text" id="roomSearch" placeholder="Search rooms...">
     </div>
-</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Room Number</th>
+                <th>Room Type</th>
+                <th>Capacity</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($rooms as $room): ?>
+            <tr>
+                <td><?= htmlspecialchars($room['room_number']) ?></td>
+                <td><?= htmlspecialchars($room['room_type']) ?></td>
+                <td><?= htmlspecialchars($room['capacity']) ?></td>
+                <td><?= htmlspecialchars($room['price']) ?></td>
+                <td>
+                    <a href="edit_room.php?id=<?= $room['id'] ?>">Edit</a> |
+                    <a href="delete_room.php?id=<?= $room['id'] ?>"
+                       onclick="return confirm('Delete this room?')">
+                       Delete
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
 </div>
 

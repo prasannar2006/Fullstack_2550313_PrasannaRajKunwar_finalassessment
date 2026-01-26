@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Meridian Suite Hotel</title>
-<link rel="stylesheet" href="/meridian_suite_hotel/assets/css/style.css">
+    <meta charset="UTF-8">
+    <title>Meridian Suite Hotel</title>
+
+    <link rel="stylesheet" href="/meridian_suite_hotel/assets/css/style.css">
 </head>
 <body>
+
 <header>
-<h1>Meridian Suite Hotel</h1>
-<nav>
-<a href="index.php">Dashboard</a>
-<a href="rooms.php">Rooms</a>
-<a href="occupants.php">Occupants</a>
-<a href="book.php">Booking</a>
-<a href="logout.php">Logout</a>
-</nav>
+    <div class="logo-area">
+        <img src="/meridian_suite_hotel/assets/images/logo.png" alt="Meridian Suite Hotel Logo">
+    </div>
+
+    <nav>
+        <a href="index.php">Dashboard</a>
+        <a href="rooms.php">Rooms</a>
+        <a href="occupants.php">Occupants</a>
+        <a href="book.php">Booking</a>
+        <a href="logout.php">Logout</a>
+    </nav>
 </header>

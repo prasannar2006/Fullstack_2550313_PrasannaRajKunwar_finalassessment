@@ -4,7 +4,13 @@ checkAuth();
 include '../includes/header.php';
 ?>
 
-<h2>Dashboard</h2>
-<p>Welcome to Meridian Suite Hotel Booking System</p>
+<div class="container">
+    <h2>Dashboard</h2>
+    <p>Welcome to the <strong>Meridian Suite Hotel</strong> booking management system.</p>
+
+    <p>
+        Use the navigation above to manage rooms, occupants, and bookings.
+    </p>
+</div>
 
 <?php include '../includes/footer.php'; ?>
