@@ -54,6 +54,11 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY room_number")->fetchAll();
         <p style="color:green;"><strong><?= htmlspecialchars($message) ?></strong></p>
     <?php endif; ?>
 
+    <p style="margin-bottom:20px;">
+        <a href="home.php" class="btn">← Back to Home</a>
+    </p>
+
+
     <form method="post">
 
         <label>Full Name</label>

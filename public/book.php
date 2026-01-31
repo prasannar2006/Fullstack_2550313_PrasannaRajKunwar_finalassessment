@@ -6,6 +6,11 @@ include '../includes/header.php';
 
 <div class="container">
 
+    <p style="margin-bottom:20px;">
+        <a href="index.php" class="btn">← Back to Home</a>
+    </p>
+
+
     <h2>Room Availability</h2>
 
     <form onsubmit="return false;">
