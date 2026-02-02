@@ -1,10 +1,13 @@
 <?php
 require '../config/db.php';
+require '../includes/functions.php';
 
 $message = "";
 
 /* Handle booking submission */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    verify_csrf();
 
     $room_id = $_POST['room_id'];
     $occupant_name = $_POST['name'];
@@ -13,17 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
 
-    /* 1. Insert occupant */
+    /* Insert occupant */
     $stmt = $pdo->prepare(
-        "INSERT INTO occupants (full_name, email, phone) VALUES (?,?,?)"
+        "INSERT INTO occupants (full_name, email, phone)
+         VALUES (?, ?, ?)"
     );
     $stmt->execute([$occupant_name, $email, $phone]);
     $occupant_id = $pdo->lastInsertId();
 
-    /* 2. Insert booking */
+    /* Insert booking */
     $stmt = $pdo->prepare(
         "INSERT INTO bookings (room_id, occupant_id, check_in, check_out)
-         VALUES (?,?,?,?)"
+         VALUES (?, ?, ?, ?)"
     );
     $stmt->execute([$room_id, $occupant_id, $check_in, $check_out]);
 
@@ -31,7 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 /* Fetch rooms */
-$rooms = $pdo->query("SELECT * FROM rooms ORDER BY room_number")->fetchAll();
+$rooms = $pdo->query(
+    "SELECT * FROM rooms ORDER BY room_number"
+)->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -51,15 +57,17 @@ $rooms = $pdo->query("SELECT * FROM rooms ORDER BY room_number")->fetchAll();
     <h2>Book a Room</h2>
 
     <?php if ($message): ?>
-        <p style="color:green;"><strong><?= htmlspecialchars($message) ?></strong></p>
+        <p style="color:green;">
+            <?= htmlspecialchars($message) ?>
+        </p>
     <?php endif; ?>
 
     <p style="margin-bottom:20px;">
         <a href="home.php" class="btn">← Back to Home</a>
     </p>
 
-
     <form method="post">
+        <input type="hidden" name="csrf" value="<?= csrf_token() ?>">
 
         <label>Full Name</label>
         <input name="name" required>

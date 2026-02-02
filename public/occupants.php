@@ -5,7 +5,11 @@ checkAuth();
 include '../includes/header.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $stmt = $pdo->prepare("INSERT INTO occupants VALUES (NULL, ?, ?, ?)");
+    verify_csrf();
+
+    $stmt = $pdo->prepare(
+        "INSERT INTO occupants (full_name, email, phone) VALUES (?,?,?)"
+    );
     $stmt->execute([
         $_POST['name'],
         $_POST['email'],
@@ -17,10 +21,11 @@ $occupants = $pdo->query("SELECT * FROM occupants ORDER BY full_name")->fetchAll
 ?>
 
 <div class="container">
-
     <h2>Occupants</h2>
 
     <form method="post">
+        <input type="hidden" name="csrf" value="<?= csrf_token() ?>">
+
         <label>Full Name</label>
         <input name="name" required>
 
@@ -53,7 +58,6 @@ $occupants = $pdo->query("SELECT * FROM occupants ORDER BY full_name")->fetchAll
         <?php endforeach; ?>
         </tbody>
     </table>
-
 </div>
 
 <?php include '../includes/footer.php'; ?>

@@ -6,7 +6,7 @@ include '../includes/header.php';
 
 <div class="container">
 
-    <p style="margin-bottom:20px;">
+    <p style="margin-bottom:50px;">
         <a href="index.php" class="btn">← Back to Home</a>
     </p>
 

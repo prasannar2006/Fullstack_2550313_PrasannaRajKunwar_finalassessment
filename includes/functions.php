@@ -16,7 +16,7 @@ function csrf_token() {
 }
 
 function verify_csrf() {
-    if ($_POST['csrf'] !== $_SESSION['csrf']) {
+    if (!isset($_POST['csrf']) || $_POST['csrf'] !== $_SESSION['csrf']) {
         die("CSRF validation failed");
     }
 }

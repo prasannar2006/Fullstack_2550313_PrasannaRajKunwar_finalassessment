@@ -5,6 +5,8 @@ require '../includes/functions.php';
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verify_csrf();
+
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
@@ -31,7 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="login-page">
 
 <div class="login-box">
-    <h2>Meridian Suite Hotel</h2>
+    <div class="logo-area">
+        <img src="/meridian_suite_hotel/assets/images/logo.png" alt="Meridian Suite Hotel Logo">
+    </div>
+
     <p class="subtitle">Admin Login</p>
 
     <?php if ($error): ?>
@@ -39,20 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form method="POST">
+        <input type="hidden" name="csrf" value="<?= csrf_token() ?>">
+
         <label>Username</label>
-        <input type="text" name="username" placeholder="Enter username" required>
+        <input type="text" name="username" required>
 
         <label>Password</label>
-        <input type="password" name="password" placeholder="Enter password" required>
+        <input type="password" name="password" required>
 
         <button type="submit">Login</button>
     </form>
-
-    <div class="hint">
-        <strong>Demo Credentials:</strong><br>
-        Username: <code>admin</code><br>
-        Password: <code>admin123</code>
-    </div>
 </div>
 
 </body>
